@@ -59,7 +59,7 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
 
-        kwargs['post_list'] = Post.objects.all()
+        
         context = super(IndexView,self).get_context_data(**kwargs)
         paginator = context.get('paginator')
         page = context.get('page_obj')
