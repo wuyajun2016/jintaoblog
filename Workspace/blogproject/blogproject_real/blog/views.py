@@ -20,6 +20,8 @@ def index(request):
     return render(request, 'blog/index.html', context={'post_list': post_list})
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    # 一旦该视图被调用，阅读量 +1
+    post.increase_views()
     post.body = markdown.markdown(post.body,
                                   extensions=[
                                      'markdown.extensions.extra',
@@ -50,12 +52,12 @@ def search(request):
     post_list = Post.objects.filter(title__icontains=q)
     return render(request, 'blog/index.html', {'error_msg': error_msg,
                                                'post_list': post_list})
-                                                                                          
+#首页展示，以及首页中的分页功能
 class IndexView(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
-    paginate_by = 2
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
 

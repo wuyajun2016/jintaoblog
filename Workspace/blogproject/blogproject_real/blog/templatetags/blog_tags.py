@@ -2,6 +2,9 @@ from django import template
 from ..models import Post
 from ..models import Category
 from django.db.models.aggregates import Count
+import sys
+sys.path.append("../../../")
+import comments.models
 
 register = template.Library()
 

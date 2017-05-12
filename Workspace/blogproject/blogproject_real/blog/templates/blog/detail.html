@@ -1,16 +1,16 @@
 ﻿{% extends 'base.html' %}
+{% load blog_tags %}
 					{% block main %}
 						<article class="post post-1">
 							<header class="entry-header">
 								<h1 class="entry-title">{{ post.title }}</h1>
 								<div class="entry-meta">
-									<span class="post-category"><a href="#">{{ post.category.name }}</a></span>
-			
-									<span class="post-date"><a href="#"><time class="entry-date" datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
-			
-									<span class="post-author"><a href="#">{{ post.author }} </a></span>
-			
-									<span class="comments-link"><a href="#">4 Comments</a></span>
+									<span class=""><a href="#"><time class="entry-date" datetime="">发布日期 {{ post.created_time|date:"Y-m-d" }}</time></a></span>
+
+									<span class=""><a href="#">阅读量 {{ post.view }}</a></span>
+
+									<span class=""><a href="#">评论 {{post.comment_set.count}}</a></span>
+
 								</div>
 							</header>
 							<div class="entry-content clearfix">
@@ -51,8 +51,8 @@
 								  <ul class="list-unstyled">
 								    {% for comment in comment_list %}
 								    <li class="comment-item">
-								      <span class="name">{{ comment.name }}</span>
-								      <time class="date">{{ comment.created_time }}</time>
+								      <span class="">用户 {{ comment.name }}</span>
+								      <time class="">发言于 {{ comment.created_time|date:"Y-m-d" }}</time>
 								      <div class="text">
 								        {{ comment.text }}
 								      </div>
@@ -62,7 +62,7 @@
 								    {% endfor %}
 								  </ul>
               </div>
-              <!-- UY BEGIN -->
+                            <!-- UY BEGIN -->
 								<div id="uyan_frame"></div>
 								<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2132948"></script>
 							<!-- UY END -->

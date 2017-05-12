@@ -3,33 +3,29 @@
 					<main class="col-md-8">
 						<article class="post post-1">
 							{% if error_msg %}
-                <p>{{ error_msg }}</p>
-              {% endif %}
-              
-							{% for post in post_list %}
+                              <p>{{ error_msg }}</p>
+							{% endif %}
+
+				  {% for post in post_list %}
                   <article class="post post-1">
                   	<header class="entry-header">
 								       <h1 class="entry-title">
 									       <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
 								       </h1>
 				               <div class="entry-meta">
-				                  <span class="post-category">
-				                     <a href="#">{{ post.category.name }} </a>
-				                  </span>
-				
-				                  <span class="post-date">
+								  <span class="category"><a href="#">{{ post.category.name }} </a></span>
+				                  <span class="">
 				                      <a href="#">
-				                        <time class="entry-date" datetime="{{ post.created_time }}">{{ post.created_time }}         </time>
+				                        <time class="entry-date" datetime="{{ post.created_time }}">{{ post.created_time|date:"Y-m-d" }}</time>
 				                      </a>
-                          </span>
-				
-				                  <span class="post-author"><a href="#">{{ post.author }} </a></span>
-				
-				                  <span class="comments-link"><a href="#">4 Comments</a></span>
+                                  </span>
+								  <span class=""><a href="#"> {{post.author}} </a></span>
+				                  <span class="fa fa-comments-o"><a href="#"> {{post.comment_set.count}}</a></span>
+								  <span class="fa fa-eye"><a href="#"> {{post.view}}</a></span>
 				               </div>
 				            </header>
 				            <div class="entry-content clearfix">
-                            <p>{{ post.excerpt }}</p>
+                            <p>{{ post.body|truncatechars:90 }}</p>
                             <div class="read-more cl-effect-14">
                                <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
                             </div>
@@ -40,7 +36,7 @@
                    <div class="no-post">暂时还没有发布的文章！</div>
                   {% endfor %}
 						</article>
-						<div style="margin-left:200px">
+						<div style="margin-left:258px">
 					{% if is_paginated %}
 							<div class="pagination">
 								  {% if first %}

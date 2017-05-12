@@ -235,7 +235,7 @@ figure {
 }
 
 .entry-content {
-	font-size: 18px;
+	font-size: 10px;
 	line-height: 1.9;
 	font-weight: 300;
 	color: #000;
@@ -274,8 +274,8 @@ figure {
 
 .cl-effect-14 a {
 	padding: 0 20px;
-	height: 45px;
-	line-height: 45px;
+	height: 25px;
+	line-height: 25px;
 	position: relative;
 	display: inline-block;
 	margin: 15px 25px;
@@ -287,7 +287,7 @@ figure {
 .cl-effect-14 a::before,
 .cl-effect-14 a::after {
 	position: absolute;
-	width: 45px;
+	width: 25px;
 	height: 1px;
 	background: #C3C3C3;
 	content: '';
@@ -427,6 +427,12 @@ figure {
     top: 1px;
     font-size: 18px;
     color: #000;
+}
+.category {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid gray;
 }
 
 /**
