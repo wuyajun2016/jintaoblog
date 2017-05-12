@@ -93,7 +93,7 @@ class IndexView(ListView):
 
         page_range = list(paginator.page_range)
 
-        print(total_pages)
+
         if page_number == 1:
             right = page_range[page_number:page_number + 2]
 
