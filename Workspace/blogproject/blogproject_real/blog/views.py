@@ -30,9 +30,25 @@ def detail(request, pk):
                                   ])
     form = CommentForm()
     comment_list = post.comment_set.all()
+    blog = Post.objects.get(pk=pk)  # 当前打开的博客
+    pre_blog = Post.objects.filter(pk__gt=blog.pk).order_by('pk')
+    next_blog = Post.objects.filter(pk__lt=blog.pk).order_by('-pk')
+
+    # 取第1条记录
+    if pre_blog.count() > 0:
+        pre_blog = pre_blog[0]
+    else:
+        pre_blog = None
+
+    if next_blog.count() > 0:
+        next_blog = next_blog[0]
+    else:
+        next_blog = None
     context = {'post': post,
                'form': form,
-               'comment_list': comment_list
+               'comment_list': comment_list,
+               "pre_blog": pre_blog,
+               "next_blog": next_blog
                }
     return render(request, 'blog/detail.html', context=context)
 def archives(request,year,month):

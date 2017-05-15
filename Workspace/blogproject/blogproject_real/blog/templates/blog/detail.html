@@ -17,6 +17,25 @@
 								 {{ post.body|safe }}
 							</div>
 						</article>
+                        <br/>
+                        <div class="demo_line_02"><p></p></div>
+                        <br/>
+                        <div style="margin-left:25px">
+                        <p>
+							{% if pre_blog %}
+                              <a href="{% url 'blog:detail' pre_blog.pk %}">上一篇：{{pre_blog.title}}</a>
+							{% else %}
+                                  上一篇：没有了
+                            {% endif %}
+						</p>
+                        <p>
+                            {% if next_blog %}
+                               <a href="{% url 'blog:detail' next_blog.pk %}">下一篇：{{next_blog.title}}</a>
+                            {% else %}
+							       下一篇：没有了
+                            {% endif %}
+                        </p>
+	                    </div>
 						<section class="comment-area">
 							<h2>留下你的评论</h2>
 							<div class="demo_line_02"><p></p></div>
