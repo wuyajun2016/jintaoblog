@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6234141c-e076-40de-b5bd-a31b527eb20f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/static/blog/img/time.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/admin.py" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/templates/base.html" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/templates/blog/detail.html" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/templates/blog/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/templates/blog/index.html" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/templates/blog/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/views.py" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blog/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blogproject_real/settings.py" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blogproject_real/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blogproject_real/urls.py" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/blogproject_real/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/comments/admin.py" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/comments/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/comments/urls.py" afterPath="$PROJECT_DIR$/Workspace/blogproject/blogproject_real/comments/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blogproject_env/pip-selfcheck.json" afterPath="$PROJECT_DIR$/blogproject_env/pip-selfcheck.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -106,8 +96,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Workspace/blogproject/blogproject_real/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="224" column="47" lean-forward="false" selection-start-line="224" selection-start-column="47" selection-end-line="224" selection-end-column="47" />
+            <state relative-caret-position="581">
+              <caret line="241" column="20" lean-forward="true" selection-start-line="241" selection-start-column="20" selection-end-line="241" selection-end-column="20" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -1133,8 +1123,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Workspace/blogproject/blogproject_real/users/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="224" column="47" lean-forward="false" selection-start-line="224" selection-start-column="47" selection-end-line="224" selection-end-column="47" />
+        <state relative-caret-position="581">
+          <caret line="241" column="20" lean-forward="true" selection-start-line="241" selection-start-column="20" selection-end-line="241" selection-end-column="20" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
