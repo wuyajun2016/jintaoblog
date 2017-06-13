@@ -1,42 +1,42 @@
-﻿{% extends 'base.html' %} 
-					{% block main %}
-					<main class="col-md-8">
-						<article class="post post-1">
-							{% if error_msg %}
-                              <p>{{ error_msg }}</p>
-							{% endif %}
+﻿{% extends 'base.html' %}
+{% load staticfiles %}
+   {% block main %}
+
+           <main class="col-md-8">
+			   <article class="post post-1" style="margin-top: 8px">
+				  {% if error_msg %}
+				       <p>{{ error_msg }}</p>
+				  {% endif %}
 
 				  {% for post in post_list %}
-                  <article class="post post-1">
-                  	<header class="entry-header">
-								       <h1 class="entry-title">
-									       <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-								       </h1>
-				               <div class="entry-meta">
-								  <span class="category"><a href="#">{{ post.category.name }} </a></span>
-				                  <span class="">
-				                      <a href="#">
-				                        <time class="entry-date" datetime="{{ post.created_time }}">{{ post.created_time|date:"Y-m-d" }}</time>
-				                      </a>
-                                  </span>
-								  <span class=""><a href="#"> {{post.author}} </a></span>
-				                  <span class="fa fa-comments-o"><a href="#"> {{post.comment_set.count}}</a></span>
-								  <span class="fa fa-eye"><a href="#"> {{post.view}}</a></span>
-				               </div>
-				            </header>
-				            <div class="entry-content clearfix">
-                            <p>{{ post.body|truncatechars:90 }}</p>
-                            <div class="read-more cl-effect-14">
-                               <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
-                            </div>
-                    </div>
-                    <div class="demo_line_02"><p></p></div>
-                  </article>
+                  <article class="blog-teaser">
+                                <header>
+								   <!--<img src="{% static 'blog/img/sample.jpg' %}" alt="">-->
+									<p></p>
+                                    <h3 style="margin-top:20px"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                                    <span class="category"><a href="#">{{ post.category.name }} </a></span>
+							<span class="">
+								<a href="#">
+									<time class="entry-date" datetime="{{ post.created_time }}">{{ post.created_time|date:"Y-m-d" }}</time>
+								</a>
+							</span>
+							<span class=""><a href="#"> {{post.author}} </a></span>
+							<span class="fa fa-comments-o"><a href="#"> {{post.comment_set.count}}</a></span>
+							<span class="fa fa-eye"><a href="#"> {{post.view}}</a></span>
+                                    <hr>
+                                </header>
+                                <div class="body">
+									{{ post.body|truncatechars:90 }}
+                                </div>
+                                <div class="clearfix">
+                                    <a href="{{ post.get_absolute_url }}" class="btn btn-clean-one">继续阅读 ></a>
+                                </div>
+				  </article>
                   {% empty %}
                    <div class="no-post">暂时还没有发布的文章！</div>
                   {% endfor %}
-						</article>
-						<div style="margin:auto 275">
+			   </article>
+			   <div style="margin:auto 70">
 					{% if is_paginated %}
 							<div class="pagination">
 								  {% if first %}
@@ -50,7 +50,7 @@
 								        <a href="?page={{ i }}">{{ i }}</a>
 								    {% endfor %}
 								  {% endif %}
-								  <a href="?page={{ page_obj.number }}" style="color: red">{{ page_obj.number }}</a>
+								  <a href="?page={{ page_obj.number }}" style="color: red;">{{ page_obj.number }}</a>
 								  {% if right %}
 								    {% for i in right %}
 								        <a href="?page={{ i }}">{{ i }}</a>
@@ -64,6 +64,6 @@
 								  {% endif %}
 							</div>
 					{% endif %}
-					</div>
-					</main>
-					{% endblock main %}
+			   </div>
+		   </main>
+   {% endblock main %}

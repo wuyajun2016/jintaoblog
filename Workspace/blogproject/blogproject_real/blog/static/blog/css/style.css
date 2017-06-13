@@ -1,0 +1,365 @@
+﻿
+/* =============================================================
+   GENERAL STYLES
+ ============================================================ */
+
+html, body {
+    padding-top:0px;
+    margin:0px;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height:25px;
+    font-size:14px;
+}
+
+
+.header-section {
+  background-color:#065883;
+  color:#fff;
+  padding:40px 5px;
+}
+    .header-section img {
+        max-width:150px;
+        border:2px solid #fff;
+    }
+
+.spon-txt {
+    padding:40px 5px;
+    font-size:25px;
+    font-weight:800;
+}
+
+.blog-main {
+    padding:10px 5px;
+    border-bottom:2px solid #065883;
+    margin-bottom:30px;
+}
+.heading-blog {
+    font-size:30px;
+    color:#065883;
+    font-weight:800;
+    padding:30px 5px;
+    line-height:40px;
+}
+.blog-info {
+    padding:20px 5px; 
+    font-size:20px;
+    font-weight:normal;
+}
+.blog-txt {
+    padding:20px 5px; 
+    font-family:Andalus ;
+    font-size:20px;    
+    font-weight:normal;
+}
+.set-foot {
+    padding:20px 5px;
+}
+.copyrights{
+	text-indent:-9999px;
+	height:0;
+	line-height:0;
+	font-size:0;
+	overflow:hidden;
+}
+#goTopBtn {
+    position: fixed;
+    line-height:36px;
+    width:36px;
+    bottom:35px;
+    height:36px;
+    cursor:pointer;
+    display:none;
+    background:url(../img/gototop.gif) no-repeat;
+}
+/*评论*/
+.blog_comment{
+    border-bottom: 1px solid #ddd;
+}
+.blog_comment .comment_title{
+    margin-top: 0.5em;
+}
+.blog_comment .comment_content{
+    padding: 0.5em;
+    border-radius: 6px;
+    background-color: #efefef;
+}
+/*回复*/
+.blog_comment .comment_reply{
+    text-indent: 0.5em;
+}
+
+/* ============
+The blog main page boxes
+=============== */
+.blog-teaser {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .blog-teaser {
+    display: block;
+    float: none;
+    width: 95%;
+  }
+}
+
+.blog-teaser header {
+  text-align: center;
+}
+
+.blog-teaser header img {
+  margin-bottom: 20px;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.blog-teaser header h3 {
+  color: #454a4e;
+  margin-top: 0;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.blog-teaser header h3 a,
+.blog-teaser header h3 a:focus,
+.blog-teaser header h3 a:hover {
+  color: #454a4e;
+}
+
+.blog-teaser header .meta {
+  color: #5a6065;
+}
+
+.blog-teaser header hr {
+  border-top-color: #ced5db;
+  border-bottom: none;
+}
+
+.blog-teaser .body {
+  padding-right: 25px;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.blog-teaser .btn {
+  float: right;
+  margin-right: 25px;
+  margin-bottom: 18px;
+}
+.clean-list {
+  list-style: none;
+}
+
+.clean-list li {
+  line-height: 23px;
+  margin-bottom: 14px;
+}
+
+.clean-list li a:hover,
+.clean-list li a:focus {
+  color: #222;
+}
+
+.clean-list li:before {
+  content: "";
+  background-color: #444;
+  border-style: solid;
+  border-width: 4px 4px;
+  display: block;
+  width: 8px;
+  left: -20px;
+  top: 15px;
+  position: relative;
+}
+
+.footer .clean-list {
+  margin-top: -6px;
+  padding-left: 23px;
+}
+
+.footer .clean-list li {
+  margin-bottom: 5px;
+}
+
+.footer .clean-list li a {
+  color: #aaa;
+  padding-bottom: 5px;
+}
+
+.footer .clean-list li a:hover {
+  color: #ffffff;
+}
+
+.footer .clean-list li:before {
+  left: -21px;
+}
+.blog-main,
+.blog-aside {
+  position: relative;
+}
+
+.blog-main:before,
+.blog-aside:before {
+  height: 100%;
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+@media (max-width: 767px) {
+  .blog-main:before,
+  .blog-aside:before {
+    display: none;
+  }
+}
+
+.blog-main {
+  padding-top: 36px;
+  padding-bottom: 20px;
+}
+
+.blog-main:before {
+  right: -16px;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .blog-main:before {
+    display: none;
+  }
+}
+
+.blog-aside {
+  padding-top: 36px;
+}
+
+@media (max-width: 767px) {
+  .blog-aside {
+    padding-top: 50px;
+  }
+}
+
+.blog-aside:before {
+  left: 15px;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .blog-aside:before {
+    display: none;
+  }
+}
+
+/* Blog aside widgets */
+.aside-widget {
+  margin-bottom: 40px;
+  border: 1px solid #ddd;
+}
+
+.aside-widget header {
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+}
+
+.aside-widget header h3 {
+  font-size: 24px;
+  padding: 10px 20px 3px 20px;
+  margin-top: 0;
+  color: #48535f;
+}
+
+.aside-widget .body {
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.aside-widget a {
+  color: #5b6268;
+}
+
+
+::selection {
+  background: #566572;
+  /* Safari */
+  color: #feffff;
+}
+
+::-moz-selection {
+  background: #566572;
+  /* Firefox */
+  color: #feffff;
+}
+
+.masthead {
+  padding-top: 55px;
+  padding-bottom: 55px;
+}
+
+.masthead #logo {
+  float: left;
+  display: block;
+}
+
+.widewrapper {
+  background-color: #fff;
+}
+
+.widewrapper.main {
+
+}
+
+.widewrapper.masthead {
+  background-color: #fff;
+  color: #f8f8f9;
+  border-bottom: #aaa;
+}
+
+.widewrapper.subheader {
+  background-color: #f1f1f1;
+  color: #444;
+  font-size: 16px;
+  min-height: 63px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.widewrapper.footer {
+  background-color: #333;
+  color: #eee;
+  font-size: 14px;
+}
+
+.widewrapper.footer a {
+  color: #7b8690;
+}
+
+.widewrapper.footer h1,
+.widewrapper.footer h2,
+.widewrapper.footer h3,
+.widewrapper.footer h4,
+.widewrapper.footer h5 {
+  color: #e6e6e6;
+}
+
+.widewrapper.copyright {
+  color: #7b8690;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  background-color: #232323;
+}
+
+.widewrapper.copyright a {
+
+}
+.copyrights{
+	text-indent:-9999px;
+	height:0;
+	line-height:0;
+	font-size:0;
+	overflow:hidden;
+}

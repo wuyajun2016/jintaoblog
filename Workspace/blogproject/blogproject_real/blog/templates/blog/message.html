@@ -1,0 +1,21 @@
+﻿{% extends 'baseLogin.html' %}
+{% load staticfiles %}
+
+
+                {% block main %}
+                <div class="row" style="margin-top:300px">
+                    <center><h4 style="line-height:300%;">{{message|safe}}</h4></center>
+                </div>
+                <script type="text/javascript">
+                    {% if goto_page %}
+                        $(function(){
+                            window.setTimeout(function(){
+                                window.location = '{{goto_url}}';
+                            },{{goto_time}});
+                        });
+                    {% endif %}
+                </script>
+                 {% endblock main%}
+
+</body>
+</html>

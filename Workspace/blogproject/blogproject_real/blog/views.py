@@ -5,6 +5,7 @@ from .models import Post,Category
 from comments.forms import CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import DetailView, ListView
+import pdb
 
 def index(request):
     post_list = Post.objects.all()
@@ -33,6 +34,7 @@ def detail(request, pk):
     blog = Post.objects.get(pk=pk)  # 当前打开的博客
     pre_blog = Post.objects.filter(pk__gt=blog.pk).order_by('pk')
     next_blog = Post.objects.filter(pk__lt=blog.pk).order_by('-pk')
+
 
     # 取第1条记录
     if pre_blog.count() > 0:

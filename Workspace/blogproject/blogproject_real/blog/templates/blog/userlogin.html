@@ -1,0 +1,59 @@
+﻿{% extends 'baseLogin.html' %}
+{% load staticfiles %}
+
+
+                {% block main %}
+                     <div class="head_text"  style="text-align:center;margin-top:100px;margin-bottom:20px">
+                        <h2 class="text-info">欢迎登录/注册用户</h2>
+                        <small>您可以评论和订阅我的博文，后面可能会推出一些活动</small>
+                     </div>
+
+                     <form id="user_form" class="main_form" method="post" style="margin:0 auto;border:1px #aaa dashed;width:270px;padding:1.5em 0em 0em 1.5em;">
+                        <!--<input type="hidden" name="csrfmiddlewaretoken" value="yzPfRCjAuYyFrZSVxNZKKtAJnvaTH3Yj">-->
+                        <!--<input id="user_csrf" type="hidden" name="csrfmiddlewaretoken" value="" />-->
+                         <!--跳转有点问题，原因是这里记录了之前页面的地址-->
+                         <input id="reback_url" type="hidden" value="{{ref}}">
+                         {% csrf_token %}
+
+                        <div id="user_control">
+                            <div class="control-group">
+                                <label class="control-label" for="user_name">邮箱：</label>
+                                <input type="text" id="user_name" class="input-xlarge" name="user_name" placeholder="请输入邮箱" autocomplete="off" data-form-un="1495353555910.3345" style=";background-color:#FAFFBD !important;box-shadow:none;">
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="user_pwd">密码：</label>
+                                <input type="password" id="user_pwd" class="input-xlarge" name="user_pwd" placeholder="请输入密码" autocomplete="off" data-form-pw="1495353555910.3345" style=";background:#FAFFBD !important;box-shadow:none;">
+                            </div>
+                        </div>
+
+                        <!--<div class="account_list">
+                            <span class="other_account">第三方账号登录：</span>
+
+                                <a href="" title="QQ登录">
+                                    <img src="{% static 'blog/img/logo_qq.png' %}" alt="QQ">
+                                </a>
+
+                                <a href="" title="Github登录">
+                                    <img src="{% static 'blog/img/logo_github.png' %}" alt="Github">
+                                </a>
+
+                        </div>-->
+
+                        <p id="tip_text" style="color:red;"></p>
+
+                        <div class="form_buttons" style="float:left;;margin-top:2em;font-size:10px">
+                            <p>我是老用户(默认)：</p>
+                            <input type="submit" class="btn btn-primary" value="登录" data-form-sbm="1495353555910.3345" style="pointer-events: auto;">
+                            <a class="btn btn-default" href="/blog/goPasswordLost">忘记密码</a>
+                        </div>
+
+                        <div class="form_buttons" style="margin:2em 0 0 1.5em;float:left;font-size:10px">
+                            <p>我是新用户：</p>
+                            <input id="user_reg" type="button" class="btn btn-primary" value="注册">
+                        </div>
+                     </form>
+                 {% endblock main%}
+
+</body>
+</html>

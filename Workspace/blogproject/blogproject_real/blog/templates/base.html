@@ -16,109 +16,143 @@
     <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/friendly.css' %}">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
     <!-- js -->
-    <script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
-    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{% static 'blog/js/pace.min.js' %}"></script>
     <script src="{% static 'blog/js/modernizr.custom.js' %}"></script>
+    <!--<script src="{% static 'blog/js/comment.js' %}"></script>-->
 	</head>
 
 	<body>
-		<div class="container">	
-			<header id="site-header">
-				<div class="row">
-					<div class="col-md-4 col-sm-5 col-xs-8">
-						<div class="logo">
-							<h1><a href="{% url 'blog:index' %}"><p class="color:yellow;">近涛的博客</p></h1>
-						</div>
-					</div><!-- col-md-4 -->
-					<div class="col-md-8 col-sm-7 col-xs-4">
-						<nav class="main-nav" role="navigation">
-							<div class="navbar-header">
-  								<button type="button" id="trigger-overlay" class="navbar-toggle">
-    								<span class="ion-navicon"></span>
-  								</button>
-							</div>
 
-							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  								<ul class="nav navbar-nav navbar-right">
-    								<li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="Home">Home</a></li>
-  								</ul>
-							</div><!-- /.navbar-collapse -->
-						</nav>
-						<div id="header-search-box">
-							<a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-							<div id="search-form" class="search-form">
-								<form role="search" method="get" id="searchform" action="{% url 'blog:search' %}">
-									{% csrf_token %}
-									<input type="search" name="q" placeholder="Search" required>
-									<button type="submit"><span class="ion-ios-search-strong"></span></button>
-								</form>				
-							</div>
-						</div>
-					</div><!-- col-md-8 -->
-				</div>
-			</header>
-		</div>
 
-		<div class="content-body">
+    <div class="navbar navbar-default navbar-fixed-top navbar-down" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                            <span class="sr-only">切换导航</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                         </button>
+                        <a class="navbar-brand" href="{% url 'blog:index' %}">近涛的博客</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+						<ul class="nav navbar-nav">
+                            <li class="">
+                                <a href="{% url 'blog:index' %}">
+                                    <span class=""></span> Home
+                                </a>
+                            </li>
+						</ul>
+						<div style="margin-right:30px">
+                        <form role="search" method="get" action="{% url 'blog:search' %}" class="navbar-form navbar-right">
+							{% csrf_token %}
+                            <input name="q" type="text" placeholder="搜索博文" class="form-control">
+                            <button type="submit">
+                                <span class="ion-ios-search-strong"></span>
+                            </button>
+                        </form>
+						</div>
+						<ul id="user_part" class="nav navbar-nav navbar-right"><li><a href="{% url 'users:goLogin' %}">登录/注册</a></li></ul>
+                    </div>
+	</div>
+
+
+		<div class="content-body" style="margin-top:25px;padding-bottom: 0px;">
 			<div class="container">
 				<div class="row">
 					<main class="col-md-8">
 					   {% block main %}
              {% endblock main %}
 					</main>
-					<aside class="col-md-4">
-						<div class="widget widget-recent-posts">		
-							<h3 class="widget-title">最新文章</h3>
-							{% get_recent_posts as recent_post_list %}		
-							<ul>
-								{% for post in recent_post_list %}
-								<li>
-									<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-								</li>
-								{% endfor %}
-							</ul>
-						</div>
-						<div class="widget widget-archives">		
-							<h3 class="widget-title">归档</h3>
-							{% archives as date_list %}		
-							<ul>
-								{% for date in date_list %}
-								<li>
-									<a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }} 年 {{ date.month }} 月</a>
-								</li>
-								{% endfor %}
-							</ul>
-						</div>
+					<aside class="col-md-4 blog-aside">
 
-						<div class="widget widget-category">		
-							<h3 class="widget-title">分类</h3>
-							{% get_categories as category_list %}		
-							<ul>
-								 {% for category in category_list %}
-								<li>
-									<a href="{% url 'blog:category' category.pk %}">{{category.name}} ({{ category.num_posts }})</a>
-								</li>
-								{% endfor %}
-							</ul>
-						</div>
+						<div class="aside-widget">
+							<header>
+
+								<h3>最新文章</h3>
+							</header>
+							<div class="body">
+								{% get_recent_posts as recent_post_list %}
+								<ul class="clean-list">
+									{% for post in recent_post_list %}
+									<li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+									{% endfor %}
+								</ul>
+							</div>
+                        </div>
+
+						<div class="aside-widget">
+							<header>
+								<h3>归档</h3>
+							</header>
+							<div class="body">
+								{% archives as date_list %}
+								<ul class="clean-list">
+									{% for date in date_list %}
+									<li><a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }} 年 {{ date.month }} 月</a></li>
+									{% endfor %}
+								</ul>
+							</div>
+                        </div>
+
+						<div class="aside-widget">
+							<header>
+								<h3>分类</h3>
+							</header>
+							<div class="body">
+								{% get_categories as category_list %}
+								<ul class="clean-list">
+									{% for category in category_list %}
+									<li><a href="{% url 'blog:category' category.pk %}">{{category.name}} ({{ category.num_posts }})</a></li>
+									{% endfor %}
+								</ul>
+							</div>
+                        </div>
+
 					</aside>
 				</div>
 			</div>
 		</div>
-		<footer id="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<p class="copyright">&copy; 2017 近涛个人博客 | 蜀ICP备 16036143号-1</p>
+        <footer>
+			<div class="widewrapper footer" style="padding-top: 20px;">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 footer-widget">
+							<h3> <i class="fa fa-user"></i>关于本站</h3>
+							<ul class="" style="margin-left:-20px;">
+								<p>软件测试博文，欢迎收藏</p>
+								<p>欢迎朋友们在任何文章评论下给我留言</p>
+							</ul>
+						</div>
+
+						<div class="col-md-4 footer-widget">
+							<h3> <i class="fa fa-pencil"></i>感言</h3>
+							<ul class="" style="margin-left:-20px">
+								<p>从绝望中寻找希望，人生终将辉煌</p>
+								<p>将岁月铭记在记忆中</p>
+								<p>万法随缘，为善是本</p>
+							</ul>
+						</div>
+
+						<div class="col-md-4 footer-widget">
+							<h3> <i class="fa fa-envelope"></i>友情链接</h3>
+							<ul class="" style="margin-left:-20px;">
+								<p><a href="" target="_blank">待接入</a></p>
+								<p><a href="" target="_blank">待接入</a></p>
+							</ul>
+						</div>
+
 					</div>
 				</div>
-				
 			</div>
-		</footer>
-
+			<div class="widewrapper copyright">
+					&copy; 2017 近涛个人博客 | 浙ICP备17019539号-1
+			</div>
+        </footer>
+        <div id="goTopBtn"></div>
 		<!-- Mobile Menu -->
 		<div class="overlay overlay-hugeinc">
 			<button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
@@ -130,6 +164,40 @@
 		</div>
 
 		<script src="{% static 'blog/js/script.js'%}"></script>
+        <script>
 
+            $(document).ready(function(){
+                        //检查登录状态
+                        $.ajax({
+                            type:"GET",
+                            url:"{% url 'users:check_is_login' %}",
+                            cache:false,
+                            dataType:'text',
+                            success:function(result){
+                                $("#user_part").html(result);
+                            },
+                            error:function(XMLHttpRequest, textStatus, errorThrown){
+                                //alert(textStatus);
+                                $("#user_part").html('<li><a href="/blog/login">登录/注册</a></li></ul>');
+                            }
+                        });
+                    });
+        </script>
+	    <script type="text/javascript">
+				 $(window).scroll(function(){
+				   var sc=$(window).scrollTop();
+				   var rwidth=$(window).width()
+				   if(sc>0){
+					$("#goTopBtn").css("display","block");
+					$("#goTopBtn").css("left",(rwidth-36)+"px")
+				   }else{
+				   $("#goTopBtn").css("display","none");
+				   }
+				 })
+				 $("#goTopBtn").click(function(){
+				   var sc=$(window).scrollTop();
+				   $('body,html').animate({scrollTop:0},500);
+				 })
+        </script>
 	</body>
 </html>
