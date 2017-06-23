@@ -38,7 +38,7 @@ def register(request):
         # 验证密码长度
         if len(reg_pwd) < 6:
             raise Exception(u"密码不能少于6位")
-        pdb.set_trace()
+        #pdb.set_trace()
         # 判断用户是否存在
         user = User.objects.filter(username=reg_name)
         if len(user) > 0:
@@ -180,7 +180,7 @@ def user_login(request):
         login_name = request.POST.get('user_name')
         login_pwd = request.POST.get('user_pwd')
 
-        pdb.set_trace()
+        #pdb.set_trace()
         if len(login_name) * len(login_pwd) == 0:
             raise Exception(u"邮箱或密码为空")
 

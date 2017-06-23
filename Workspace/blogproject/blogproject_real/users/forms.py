@@ -2,6 +2,8 @@
 from django.contrib.auth.models import User
 from .models import UserProfile
 from django.core.exceptions import ValidationError
+from .models import UserProfile
+import pdb
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -26,9 +28,11 @@ class ChangeNickForm(forms.Form):
 
     # nickname验证方法
     def clean_nickname(self):
+        pdb.set_trace()
         old_nickname = self.cleaned_data.get('old_nickname')
         nickname = self.cleaned_data.get('nickname')
-        is_exist = User.objects.filter(first_name=nickname).count() > 0
+        #is_exist = User.objects.filter(first_name=nickname).count() > 0
+        is_exist = UserProfile.objects.filter(nickname=nickname).count() > 0
 
         if is_exist:
             # 用事先写入hidden的昵称判断是否是自己的昵称
