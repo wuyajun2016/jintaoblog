@@ -13,11 +13,14 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 import django.utils.timezone
 from django.forms.models import model_to_dict
+from helper import comments_count
+from .forms import ChangeNickForm
 import pdb
 
 def register(request):
     response_data = {}
     reg_name = ''
+
 
     try:
         reg_name = request.POST.get('user_name')
@@ -35,7 +38,7 @@ def register(request):
         # 验证密码长度
         if len(reg_pwd) < 6:
             raise Exception(u"密码不能少于6位")
-
+        pdb.set_trace()
         # 判断用户是否存在
         user = User.objects.filter(username=reg_name)
         if len(user) > 0:
@@ -63,7 +66,7 @@ def register(request):
         response_data['message'] = u'注册成功，并发送激活邮件到您的邮箱。'
     except Exception as e:
         response_data['success'] = False
-        response_data['message'] = e.message
+        response_data['message'] = str(e)
 
     finally:
         if response_data['success']:
@@ -74,7 +77,7 @@ def register(request):
                 active_code = get_active_code(reg_name)
                 send_active_email(reg_name, active_code)
             except Exception as e:
-                response_data['message'] = u'注册成功，激活邮件发送失败。请稍后重试 ' + e.message
+                response_data['message'] = u'注册成功，激活邮件发送失败。请稍后重试 ' + str(e)
             # 注册成功，django1.10之前可以调用以下方法登录用户，1.10(包括)之后的要求激活才能登录,没激活的话user返回的都是none
             #user = authenticate(username=reg_name, password=reg_pwd)
             #if user is not None:
@@ -124,10 +127,11 @@ def goPasswordLost(request):
 def check_is_login(request):
     """check the user is logined"""
     if request.user.is_authenticated():
-        username = request.user.first_name
-
-        if not username:
-            username = request.user.username
+        #这里换成nickname,之前是没扩展用户信息，直接用了邮箱为用户名
+        #username = request.user.first_name
+        nickname = UserProfile.objects.get(id=request.user.id)
+        #if not username:
+        #username = request.user.username
         if request.user.is_active:
             active_state = ''
         else:
@@ -140,9 +144,10 @@ def check_is_login(request):
                 </a>
 
                 <ul class="dropdown-menu">
+                    <li><a href="%s">用户中心</a></li>
                     <li><a href="%s">退出</a></li>
                 </ul>
-            </li>''' % (username,active_state,"/blog/user_logout")
+            </li>''' % (nickname,active_state,"/blog/gousercenter","/blog/user_logout")
     else:
         # 登录不成功就返回“登录”、“注册”的菜单
         returnText = u'''<li><a href="/blog/login">登录/注册</a></li>'''
@@ -153,18 +158,29 @@ def user_logout(request):
     logout(request)
     #记住来源的url，如果没有则设置为首页('/')
     returnPath=request.META.get('HTTP_REFERER', '/')
-    #重定向到原来的页面，相当于刷新
-    return HttpResponseRedirect(returnPath)
+    content = {'ref': returnPath}
+    data = {}
+    data['goto_url'] = '/'
+    data['goto_time'] = 2000
+    data['goto_page'] = True
+    data['message'] = u'登出成功！欢迎您再次登录！！！'
+    # 判断点击退出登录，如之前的页面在用户中心
+    if content['ref'].find("blog/gousercenter/") != -1 or content['ref'].find("blog/goPasswordLost/") != -1 or content['ref'].find("blog/gonickname_change/") != -1:
+        return render(request, 'blog/message.html', data)
+    else:
+        # 重定向到原来的页面，相当于刷新
+        return HttpResponseRedirect(returnPath)
+
 @csrf_exempt
 def user_login(request):
     """login"""
     response_data = {}
-
+    #pdb.set_trace()
     try:
         login_name = request.POST.get('user_name')
         login_pwd = request.POST.get('user_pwd')
 
-
+        pdb.set_trace()
         if len(login_name) * len(login_pwd) == 0:
             raise Exception(u"邮箱或密码为空")
 
@@ -188,7 +204,7 @@ def user_login(request):
 
     except Exception as e:
         response_data['success'] = False
-        response_data['message'] = e.message
+        response_data['message'] = str(e)
     finally:
         # 返回json数据
         return HttpResponse(json.dumps(response_data), content_type="application/json")
@@ -250,7 +266,7 @@ def changepassword(request):
 
     except Exception as e:
         response_data['success'] = False
-        response_data['message'] = e.message
+        response_data['message'] = str(e)
     finally:
         if response_data['success']:
             # 重置密码成功，登录用户
@@ -356,19 +372,19 @@ def get_email_code(request):
     """get email code"""
     reg_name = request.POST.get('email')
 
-    code = ''.join(random.sample(string.digits + string.letters, 6))
+    code = ''.join(random.sample(string.digits + string.ascii_letters, 6))
 
     data = {}
     data['success'] = False
     data['message'] = ''
-
+    #pdb.set_trace()
     try:
         # 检查邮箱
         users = User.objects.filter(email=reg_name)
         if len(users) == 0:
             data['success'] = False
             data['message'] = u'此邮箱未注册'
-            raise Exception, data['message']
+            raise Exception(u"此邮箱未注册")
         # 检查短时间内是否有生成过验证码
         #pdb.set_trace()
         acc = User_forgetpassword.objects.filter(user_fp_id= User.objects.get(username=reg_name).id)
@@ -381,7 +397,7 @@ def get_email_code(request):
             td = django.utils.timezone.now() - acc[len(acc)-1].valid_time
             if td.seconds < 60:
                 data['message'] = u'1分钟内发送过一次验证码'
-                raise Exception, data['message']
+                raise Exception(u"1分钟内发送过一次验证码")
             else:
                 # 写入数据库
                 user_forgetpassword = User_forgetpassword()
@@ -415,6 +431,92 @@ def get_email_code(request):
         data['success'] = True
         data['message'] = 'OK'
     except Exception as e:
-        pass
+        str(e)
     finally:
         return HttpResponse(json.dumps(data), content_type="application/json")
+#装饰器，登录判断
+def check_login(func):
+    def wrapper(request):
+        #登录判断，若没登录则跳转到前面写的信息提示页面
+        #pdb.set_trace()
+        if not request.user.is_authenticated():
+            data = {}
+            data['goto_url'] = '/blog/login'
+            data['goto_time'] = 2000
+            data['goto_page'] = True
+            data['message'] = u'您尚未登录，请先登录'
+            return render_to_response('blog/message.html',data)
+        else:
+            return func(request)
+    return wrapper
+
+@check_login
+def gousercenter(request):
+    data = {}
+    # 判断是否登陆了,这里加了登陆装饰器就不需要判断了
+    #if request.user.is_authenticated():
+
+    data['user'] = request.user
+    #nickname = UserProfile.objects.get(id=request.user.id)
+    data['nickname'] = UserProfile.objects.get(id=request.user.id)
+    data['comments_count'] = comments_count.get_comments_count(request.user.id)
+    data['replies_count'] = comments_count.get_replies_count(request.user.id)
+    data['replyed_count'] = comments_count.get_to_reply_count(request.user.id)
+    data['last_talk_about'] = comments_count.last_talk_about(request.user.id)
+    data['all_talk_about'] = comments_count.all_talk_about(request.user.id)
+    return render_to_response('blog/usercenter.html', data)
+'''def gousercenter(request):
+    data={}
+    user = request.user
+
+    #判断是否登陆了
+    if request.user.is_authenticated():
+        pdb.set_trace()
+        data['user'] = user
+        data['comments_count'] = comments_count.get_comments_count(user.id)
+        return render_to_response('blog/usercenter.html', data)
+    else:
+        data['message'] = u'您尚未登录，请先登录'
+        data['goto_page'] = True
+        data['goto_url'] = '/blog/login/'
+        data['goto_time'] = 2000'''
+@check_login
+def gonickname_change(request):
+    data = {}
+    data['form_title'] = u'修改昵称'
+    data['submit_name'] = u'　确定　'
+
+    if request.method == 'POST':
+        # 表单提交
+        form = ChangeNickForm(request.POST)
+
+        # 验证是否合法
+        if form.is_valid():
+            # 修改数据库
+            nickname = form.cleaned_data['nickname']
+            profile = UserProfile()
+            profile.user_id = request.user.id
+            profile.nickname = nickname
+            profile.save()
+
+            # 页面提示
+            data['goto_url'] = reverse('users:gousercenter')
+            data['goto_time'] = 3000
+            data['goto_page'] = True
+            data['message'] = u'修改昵称成功，修改为“%s”' % nickname
+            return render_to_response('blog/message.html', data)
+    else:
+        # 正常加载
+        #这个是取userprofile扩展下的昵称
+        nickname1=UserProfile.objects.filter(id=request.user.id)
+        # 用initial给表单填写初始值
+        form = ChangeNickForm(initial={
+            'old_nickname': nickname1[0],
+            'nickname': nickname1[0],
+        })
+    data['form'] = form
+    return render(request, 'blog/nickname_change.html', data)
+
+
+
+

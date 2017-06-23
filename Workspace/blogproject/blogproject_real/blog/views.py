@@ -5,6 +5,8 @@ from .models import Post,Category
 from comments.forms import CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import DetailView, ListView
+from users.models import UserProfile
+from django.contrib.auth.models import User
 import pdb
 
 def index(request):
@@ -36,6 +38,11 @@ def detail(request, pk):
     next_blog = Post.objects.filter(pk__lt=blog.pk).order_by('-pk')
 
 
+    if request.user.is_authenticated():
+        nickname = UserProfile.objects.get(id=request.user.id)
+    else:
+        nickname = ""
+
     # 取第1条记录
     if pre_blog.count() > 0:
         pre_blog = pre_blog[0]
@@ -50,9 +57,15 @@ def detail(request, pk):
                'form': form,
                'comment_list': comment_list,
                "pre_blog": pre_blog,
-               "next_blog": next_blog
+               "next_blog": next_blog,
+               "nickname":nickname
                }
     return render(request, 'blog/detail.html', context=context)
+
+def get_comments(self):
+    if self.user:
+        return self.user.comment_comments.all()
+
 def archives(request,year,month):
     post_list = Post.objects.filter(created_time__year=year, created_time__month=month)
     return render(request, 'blog/index.html', context={'post_list': post_list})

@@ -1,0 +1,86 @@
+﻿{% extends 'baseLogin.html' %}
+{% load staticfiles %}
+
+
+
+                {% block main %}
+                <div class="row" style="margin-top:50px">
+                    <div class="col-md-5">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">我的信息</div>
+                            <div class="panel-body">
+                                <div class="">
+                                    <h4 class="user-name">{{nickname}}</h4>
+                                    <span><a style="color:#337ab7" href="{% url 'users:gonickname_change' %}">修改昵称</a></span>
+                                    <span><a style="color:#337ab7" href="{% url 'users:goPasswordLost'  %}">修改密码</a></span>
+                                </div>
+
+
+
+                                <ul class="user-info" style="margin-top:10px">
+                                    <li>
+                                        <span>注册邮箱：</span>
+                                        <span>{{user.username}}</span>
+                                    </li>
+                                    <li>
+                                        <span>注册日期：</span>
+                                        <span>{{user.date_joined|date:"Y-m-d H:i"}}</span>
+                                    </li>
+                                    <li>
+                                        <span>最近登录：</span>
+                                        <span>{{user.last_login|date:"Y-m-d H:i"}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">我的足迹</div>
+                            <div class="panel-body">
+                                <div class="">
+                                    <h4 class="user-name">信息统计</h4>
+                                    <span>最近参与讨论的文章：
+                                        {% if last_talk_about %}
+                                            <a style="color:#337ab7" href="/post/{{last_talk_about.id}}" target="_blank">{{last_talk_about}}</a>
+                                        {% else %}
+                                            无
+                                        {% endif %}
+                                    </span>
+                                </div>
+
+                                <ul class="user-info">
+                                    <li>您共评论了<b>{{comments_count}}</b>次</li>
+                                    <li>您共回复了<b>{{replies_count}}</b>次</li>
+                                    <li>有<b>{{replyed_count}}</b>次，其他人回复了您</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">我的发言</div>
+                            <div class="panel-body">
+                                {% for blog in all_talk_about %}
+                                    <div class="sp-item">
+                                        <h5 class="sp-title"><a style="color:#337ab7" href="/post/{{blog.id}}" target="_blank">{{blog.title}}</a></h5>
+                                        <ul class="sp-detail">
+                                            {% for comment in blog.comments %}
+                                                <li>{{comment.submit_date|date:"Y-m-d H:i"}}
+                                                {% if comment.root_id %}回复 <span class="label label-primary">{{comment.reply_name}}</span>{%else%}评论{%endif%}：
+                                                {{comment.comment}}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                                <p class="text-right">查看更多博文发表您的宝贵意见吧~ <a href="{% url 'blog:index' %}" target="">看博客&gt;&gt;</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 {% endblock main%}
+
+</body>
+</html>

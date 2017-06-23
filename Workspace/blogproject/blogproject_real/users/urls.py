@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^blog/changepassword/$', views.changepassword, name='changepassword'),
     url(r'^user_active/([a-zA-Z]+)$',views.user_active,name='user_active'),
     url(r'^blog/get_email_code/$',views.get_email_code,name='get_email_code'),
+    url(r'^blog/gousercenter/$',views.gousercenter,name='gousercenter'),
+    url(r'^blog/gonickname_change/$',views.gonickname_change,name='gonickname_change'),
 ]

@@ -1,5 +1,6 @@
 ﻿{% extends 'base.html' %}
 {% load staticfiles %}
+{% load comments %}
    {% block main %}
 
            <main class="col-md-8">
@@ -21,7 +22,8 @@
 								</a>
 							</span>
 							<span class=""><a href="#"> {{post.author}} </a></span>
-							<span class="fa fa-comments-o"><a href="#"> {{post.comment_set.count}}</a></span>
+							{% get_comment_count for post as comment_count %}
+							<span class="fa fa-comments-o"><a href="#"> {{comment_count}}</a></span>
 							<span class="fa fa-eye"><a href="#"> {{post.view}}</a></span>
                                     <hr>
                                 </header>

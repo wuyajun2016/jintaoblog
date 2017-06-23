@@ -11,8 +11,8 @@
 									<span class=""><a href="#"><time class="entry-date" datetime="">发布日期 {{ post.created_time|date:"Y-m-d" }}</time></a></span>
 
 									<span class=""><a href="#">阅读量 {{ post.view }}</a></span>
-
-									<span class=""><a href="#">评论 {{post.comment_set.count}}</a></span>
+                                    {% get_comment_count for post as comment_count %}
+									<span class=""><a href="#">评论 {{comment_count}}</a></span>
 
 								</div>
 							</header>
@@ -98,9 +98,10 @@
                                         <input class="input-xlarge" id="id_email" type="email" name="email" placeholder="请输入您的邮箱地址" value=""/>
                                     </div>
                                 </div>-->
+                                <!--此处的{{nickname}}之前是{{user.username}}-->
                                 <input type="hidden" name="next" value="{%url 'blog:detail' post.pk %}"/>
                                 <input type="hidden" name="reply_to" value="0" />
-                                <input type="hidden" id="id_name" name="name" value="{{user.username}}"/>
+                                <input type="hidden" id="id_name" name="name" value="{{nickname}}"/>
                                 <input type="hidden" id="id_email" name="email" value="{{user.email}}"/>
 
                                 <a name="newcomment" id="newcomment"></a>
@@ -141,7 +142,9 @@
                                 {{ blog_form.site }}
                                 {{ blog_form.submit_date }}
                                 {{ blog_form.security_hash }}
+                                <!-之前这里没有{{nickname}}这一行--->
                                 <input type="hidden" name="next" value="{%url 'blog:detail' post.pk %}"/>
+                                <input type="hidden" id="id_name1" name="name" value="{{nickname}}"/>
                                 <input id="reply_to" type="hidden" name="reply_to" value="0" />
                                 <input id="root_id" type="hidden" name="root_id" value="0" />
                                 <input id="reply_name" type="hidden" name="reply_name" value="">
