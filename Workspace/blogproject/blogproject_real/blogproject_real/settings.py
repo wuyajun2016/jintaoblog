@@ -131,8 +131,8 @@ STATIC_URL = '/static/'
 #send email
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = '491395033@qq.com'
-EMAIL_HOST_PASSWORD = 'gfuvlkvcmsuscagh'
+EMAIL_HOST_USER = '51jobwyj@sina.com'
+EMAIL_HOST_PASSWORD = '****'
 EMAIL_SUBJECT_PREFIX = '[wuzihan.top]'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = '491395033@qq.com'
+DEFAULT_FROM_EMAIL = '51jobwyj@sina.com'
